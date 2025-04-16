@@ -1,6 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-// TODO: declare necessary utility/helper functions
+void free_pointer(char *pntr);
+void change_extension(char *file_name,const char *new_extension);
 
 #endif
