@@ -35,11 +35,16 @@ int compress(char *input_file_name)
         else if (prev_c == c)
         {
             cnt++;
-        }
-        else if ((prev_c != '\0') && (prev_c != '\n'))
-        {
-            if (fprintf(compressed_file, "%c%d", prev_c, cnt + 1) < 0)
-            {
+            } else if ( (prev_c != '\0') && (prev_c != '\n') ) {
+                if(fprintf(compressed_file, "%c%d",prev_c,cnt+1) < 0) {
+                    perror("Could not write to compressed file");
+                    fclose(file);
+                    fclose(compressed_file);
+                    exit(EXIT_FAILURE);        
+                } 
+            cnt = 0;
+        } else if (prev_c == '\n') {
+            if(fprintf(compressed_file, "%c",prev_c) < 0) {
                 perror("Could not write to compressed file");
                 fclose(file);
                 fclose(compressed_file);
@@ -59,16 +64,13 @@ int compress(char *input_file_name)
         }
         prev_c = c;
     }
-    // Handle the last character after the loop
-    if (prev_c != '\0' && prev_c != '\n')
-    {
-        if (fprintf(compressed_file, "%c%d", prev_c, cnt + 1) < 0)
-        {
-            perror("Could not write to compressed file");
-            fclose(file);
-            fclose(compressed_file);
-            exit(EXIT_FAILURE);
-        }
+// Handle the last character after the loop
+if (prev_c != '\0' && prev_c != '\n') {
+    if (fprintf(compressed_file, "%c%d", prev_c, cnt + 1) < 0) {
+        perror("Could not write to compressed file");
+        fclose(file);
+        fclose(compressed_file);
+        exit(EXIT_FAILURE);
     }
     // close files when done
     fclose(file);
