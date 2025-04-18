@@ -17,6 +17,7 @@ void print_help(const char *program_name)
     printf("Options:\n");
     printf("  -c path/to/file.txt    A file to compress (must be a .txt file)\n");
     printf("  -b path/to/file.rle    A file to decompress (must be a .rle)\n");
+    printf("  -h                     To return this help information\n");
 }
 
 void cleanup()
@@ -37,7 +38,7 @@ int main(int argc, char *argv[])
     int compress_flag = 0;   // Flag for compression
     int decompress_flag = 0; // Flag for decompression
     // Loop through options
-    while ((opt = getopt(argc, argv, "c:d:")) != -1)
+    while ((opt = getopt(argc, argv, "c:d:h")) != -1)
     {
         switch (opt)
         {
@@ -79,8 +80,12 @@ int main(int argc, char *argv[])
                 exit(EXIT_FAILURE);
             }
             break;
+        case 'h': // Handle -h option
+            print_help(argv[0]);
+            return 0; // Exit after printing help
         case '?':
             printf("Unknown option: -%c\n", optopt);
+            print_help(argv[0]);
             exit(EXIT_FAILURE);
             break;
         }
