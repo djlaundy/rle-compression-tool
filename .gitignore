@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# vscode 
+.vscode
+
+# test files
+test_compress.rle 
+test_decompress.txt
