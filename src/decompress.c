@@ -45,13 +45,7 @@ int decompress(char *input_file_name)
                 c_int = atoi(num);
                 for (int i = 0; i < c_int; i++)
                 {
-                    if (fprintf(uncompressed_file, "%c", prev_c) < 0)
-                    {
-                        perror("Could not write to decompressed file");
-                        fclose(file);
-                        fclose(uncompressed_file);
-                        exit(EXIT_FAILURE);
-                    }
+                    print_to_file(uncompressed_file, "%c", prev_c);
                 }
                 num[0] = '\0';
             }
@@ -60,13 +54,7 @@ int decompress(char *input_file_name)
             if (c == '\n')
             {
                 prev_c = '\0';
-                if (fprintf(uncompressed_file, "%c", c) < 0)
-                {
-                    perror("Could not write to decompressed file");
-                    fclose(file);
-                    fclose(uncompressed_file);
-                    exit(EXIT_FAILURE);
-                }
+                print_to_file(uncompressed_file, "%c", c);
             }
         }
     if (prev_c != '\0' && prev_c != '\n')
@@ -74,13 +62,7 @@ int decompress(char *input_file_name)
         c_int = atoi(num);
         for (int i = 0; i < c_int; i++)
         {
-            if (fprintf(uncompressed_file, "%c", prev_c) < 0)
-            {
-                perror("Could not write to decompressed file");
-                fclose(file);
-                fclose(uncompressed_file);
-                exit(EXIT_FAILURE);
-            }
+            print_to_file(uncompressed_file, "%c", prev_c);
         }
     }
     // close files when done

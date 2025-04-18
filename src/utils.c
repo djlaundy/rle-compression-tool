@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdarg.h>
 
 void free_pointer(char *pntr)
 {
@@ -25,4 +26,19 @@ void open_file(FILE **ptr, char *file_name, char *opt)
         fprintf(stderr, "Could not open source file to compress: %s\n", file_name);
         exit(EXIT_FAILURE);
     }
+}
+
+void print_to_file(FILE *file, const char *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+
+    // Use vfprintf to handle the variable arguments
+    if (vfprintf(file, format, args) < 0)
+    {
+        perror("Could not write to file");
+        exit(EXIT_FAILURE);
+    }
+
+    va_end(args);
 }
