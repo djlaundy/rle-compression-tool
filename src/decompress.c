@@ -8,21 +8,13 @@
 int decompress(char *input_file_name)
 {
     printf("Decompressing file: %s\n", input_file_name);
-    FILE *file = fopen(input_file_name, "r"); // open original file for input
-    if (file == NULL)
-    {
-        perror("Could not open source file to decompress");
-        exit(EXIT_FAILURE);
-    }
+    FILE *file;
+    open_file(&file, input_file_name, "r");
     // update file with .rle extension
     char *output_file_name = input_file_name;
     change_extension(output_file_name, ".txt");
-    FILE *uncompressed_file = fopen(output_file_name, "w");
-    if (uncompressed_file == NULL)
-    {
-        perror("Could not create decompressed file");
-        exit(EXIT_FAILURE);
-    }
+    FILE *uncompressed_file;
+    open_file(&uncompressed_file, output_file_name, "w");
     char c;
     char num[10] = ""; // Allocate sufficient space for storing digits
     int c_int = 0;

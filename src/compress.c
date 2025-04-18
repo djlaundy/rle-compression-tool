@@ -7,21 +7,13 @@
 int compress(char *input_file_name)
 {
     printf("Compressing file: %s\n", input_file_name);
-    FILE *file = fopen(input_file_name, "r"); // open original file for input
-    if (file == NULL)
-    {
-        perror("Could not open source file to compress");
-        exit(EXIT_FAILURE);
-    }
+    FILE *file;
+    open_file(&file, input_file_name, "r");
     // update file with .rle extension
     char *output_file_name = input_file_name;
     change_extension(output_file_name, ".rle");
-    FILE *compressed_file = fopen(output_file_name, "w");
-    if (compressed_file == NULL)
-    {
-        perror("Could not create compressed file");
-        exit(EXIT_FAILURE);
-    }
+    FILE *compressed_file;
+    open_file(&compressed_file, output_file_name, "w");
     char c;
     char prev_c = '\0';
     int cnt = 0;
